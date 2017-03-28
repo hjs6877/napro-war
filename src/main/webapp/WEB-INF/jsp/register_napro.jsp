@@ -27,7 +27,7 @@
                     <button type="button" class="btn btn-default">수정</button>
                     <button type="button" class="btn btn-default">삭제</button>
                 </div>
-                <div>
+                <div class="row">
                     <table class="table">
                         <thead>
                         <th>라디오박스</th>

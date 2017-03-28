@@ -5,24 +5,35 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Napro Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Napro Calendar</title>
+    <jsp:include page="include/header.jsp"/>
 
-    <link href="${pageContext.request.contextPath}/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet" />
 </head>
 <body style="margin:5px;">
-    <div class="container-fluid">
-        <div class="row">
-            <h4><span class="glyphicon glyphicon-calendar" style="background-color: lightblue"></span> Na-Pro Technology 캘린더</h4>
+    <div id="wrapper">
+        <jsp:include page="include/sidebar.jsp"/>
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <jsp:include page="include/sidebar_toggle_button.jsp"/>
+                <div class="row"  style="margin-top: 20px;">
+                    <h4><span class="glyphicon glyphicon-calendar" style="background-color: lightblue"></span> Na-Pro Technology 캘린더</h4>
+                </div>
+                <div class="row text-center">
+                    캘린더 영역....
+                </div>
+                <div class="row">
+                    <a href="${pageContext.request.contextPath}/np/registration">Move to Napro registration page.</a>
+                </div>
+            </div>
         </div>
-        <div class="row text-center">
-            캘린더 영역
-        </div>
-        <div class="row">
-            <a href="${pageContext.request.contextPath}/np/registration">Move to Napro registration page.</a>
-        </div>
+        <!-- /#page-content-wrapper -->
+
     </div>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/lib/jquery/jquery-3.2.0.min.js"></script>
+    <!-- /#wrapper -->
+
+
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/napro_home.js"></script>
 </body>
 </html>

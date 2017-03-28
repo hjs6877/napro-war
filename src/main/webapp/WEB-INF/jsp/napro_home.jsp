@@ -20,9 +20,7 @@
                 <div class="row"  style="margin-top: 20px;">
                     <h4><span class="glyphicon glyphicon-calendar" style="background-color: lightblue"></span> Na-Pro Technology 캘린더</h4>
                 </div>
-                <div class="row text-center">
-                    캘린더 영역....
-                </div>
+                <div class="row text-center" id="calendar"></div>
                 <div class="row">
                     <a href="${pageContext.request.contextPath}/np/registration">Move to Napro registration page.</a>
                 </div>

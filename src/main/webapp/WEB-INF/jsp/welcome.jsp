@@ -9,9 +9,11 @@
 
     <link href="/css/main.css" rel="stylesheet" />
     <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript">
+        location.href = "${pageContext.request.contextPath}/np"
+    </script>
 </head>
 <body>
-<h1>Spring Boot Web JSP Example</h1>
-<h2>Message: ${message}</h2>
+<h1>welcom to napro</h1>
 </body>
 </html>

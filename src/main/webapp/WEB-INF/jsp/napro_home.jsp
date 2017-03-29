@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Napro Calendar</title>
     <jsp:include page="include/header.jsp"/>
-
+    <link href="${pageContext.request.contextPath}/css/napro_home.css" rel="stylesheet">
 </head>
 <body style="margin:5px;">
     <div id="wrapper">

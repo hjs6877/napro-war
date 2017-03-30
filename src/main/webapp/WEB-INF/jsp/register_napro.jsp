@@ -18,7 +18,7 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-xs-1">
+                    <div class="col-xs-1" style="padding-left: 0px">
                         <jsp:include page="include/sidebar_toggle_button.jsp"/>
                     </div>
                     <div class="col-xs-11 text-center">

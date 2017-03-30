@@ -16,11 +16,15 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-                <jsp:include page="include/sidebar_toggle_button.jsp"/>
-                <div class="row"  style="margin-top: 20px;">
-                    <h4><span class="glyphicon glyphicon-calendar" style="background-color: lightblue"></span> Na-Pro Technology 캘린더</h4>
+                <div class="row">
+                    <div class="col-xs-1">
+                        <jsp:include page="include/sidebar_toggle_button.jsp"/>
+                    </div>
+                    <div class="col-xs-11 text-center">
+                        <h4><span class="glyphicon glyphicon-calendar" style="background-color: lightblue"></span> Na-Pro Technology 캘린더</h4>
+                    </div>
                 </div>
-                <div class="row text-center" id="calendar"></div>
+                <div class="row text-center" id="calendar" style="margin-top: 20px;"></div>
                 <div class="row">
                     <a href="${pageContext.request.contextPath}/np/registration">Move to Napro registration page.</a>
                 </div>

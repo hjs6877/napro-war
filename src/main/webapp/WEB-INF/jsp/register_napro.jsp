@@ -17,17 +17,20 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-                <jsp:include page="include/sidebar_toggle_button.jsp"/>
-
                 <div class="row">
-                    <h3><span class="glyphicon glyphicon-registration-mark"></span>Napro Registration</h3>
+                    <div class="col-xs-1">
+                        <jsp:include page="include/sidebar_toggle_button.jsp"/>
+                    </div>
+                    <div class="col-xs-11 text-center">
+                        <h4><span class="glyphicon glyphicon-registration-mark"></span> Napro Registration</h4>
+                    </div>
                 </div>
-                <div class="row text-right">
-                    <button type="button" class="btn btn-default" id="btn_register_napro">신규</button>
-                    <button type="button" class="btn btn-default">수정</button>
-                    <button type="button" class="btn btn-default">삭제</button>
+                <div class="row text-right" style="margin-top: 20px;">
+                    <button type="button" class="btn btn-default btn-primary" id="btn_register_napro">등록</button>
+                    <button type="button" class="btn btn-default btn-success">수정</button>
+                    <button type="button" class="btn btn-default btn-danger">삭제</button>
                 </div>
-                <div class="row">
+                <div class="row" style="margin-top: 10px; border-top: 1px solid #e1e1e1">
                     <table class="table">
                         <thead>
                         <th>라디오박스</th>

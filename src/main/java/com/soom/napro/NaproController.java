@@ -30,12 +30,12 @@ public class NaproController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registerNaproForm(){
-        return "register_napro";
+        return "napro_register";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registerNapro(@RequestParam(name = "eventId", required = false) int eventId, NaproData naproData, Model model){
         naproService.registerNaproData(eventId, naproData);
-        return "register_napro";
+        return "napro_register";
     }
 }

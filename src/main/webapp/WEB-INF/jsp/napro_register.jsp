@@ -72,12 +72,12 @@
                                             </select>
                                             <div class="text-center" style="margin-top: 10px;">
                                                 <label>
-                                                    <input type="radio" name="existMucus" value="Y" class="existMucus" disabled/>
+                                                    <input type="radio" name="existMucus" value="Y" class="existMucus"/>
                                                     점액 있음
                                                 </label>
                                                 &nbsp;&nbsp;&nbsp;
                                                 <label>
-                                                    <input type="radio" name="existMucus" value="N" class="existMucus" disabled/>
+                                                    <input type="radio" name="existMucus" value="N" class="existMucus"/>
                                                     점액 없음
                                                 </label>
                                             </div>
@@ -92,6 +92,7 @@
                                         <div class="panel-body">
                                             <span>Level:</span>
                                             <select id="sltLevel" class="form-control">
+                                                <option value="">- 선택 -</option>
                                                 <option value="0">건조</option>
                                                 <option value="2">미끈거리지 않는 눅눅함</option>
                                                 <option value="2W">미끈거리지 않는 젖음</option>
@@ -104,17 +105,17 @@
                                             <div class="checkbox" style="margin-top: 25px;">
                                                 <span>State 1:</span><br/>
                                                 <label>
-                                                    <input type="checkbox" name="state1[]" value="" class="chkState1"/>
+                                                    <input type="checkbox" name="state1_d" value="" id="state1_d" class="chkState1"/>
                                                     D(눅눅함)
                                                 </label>
                                                 &nbsp;&nbsp;&nbsp;
                                                 <label>
-                                                    <input type="checkbox" name="state1[]" value="" class="chkState1"/>
+                                                    <input type="checkbox" name="state1_w" value="" id="state1_w" class="chkState1"/>
                                                     W(젖음)
                                                 </label>
                                                 &nbsp;&nbsp;&nbsp;
                                                 <label>
-                                                    <input type="checkbox" name="state1[]" value="" class="chkState1"/>
+                                                    <input type="checkbox" name="state1_s" value="" id="state1_s" class="chkState1"/>
                                                     S(빛남)
                                                 </label>
                                             </div>

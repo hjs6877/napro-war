@@ -62,13 +62,13 @@
                                             mense
                                         </div>
                                         <div class="panel-body">
-                                            <select id="sltMense" class="form-control">
-                                                <option value="NO">생리 없음</option>
-                                                <option value="H">생리량이 많은 날</option>
-                                                <option value="M">생리량이 보통인 날</option>
-                                                <option value="L">생리량이 적은 날</option>
-                                                <option value="VL">생리량이 아주 적은 날(묻어나는 정도)</option>
-                                                <option value="B">갈색 혹은 검은색 생리혈</option>
+                                            <select id="sltMense" name="mense" class="form-control">
+                                                <option value="M_NO">생리 없음</option>
+                                                <option value="M_H">생리량이 많은 날</option>
+                                                <option value="M_M">생리량이 보통인 날</option>
+                                                <option value="M_L">생리량이 적은 날</option>
+                                                <option value="M_VL">생리량이 아주 적은 날(묻어나는 정도)</option>
+                                                <option value="M_B">갈색 혹은 검은색 생리혈</option>
                                             </select>
                                             <div class="text-center" style="margin-top: 10px;">
                                                 <label>
@@ -91,31 +91,31 @@
                                         </div>
                                         <div class="panel-body">
                                             <span>Level:</span>
-                                            <select id="sltLevel" class="form-control">
+                                            <select id="sltLevel" name="vaginaLevel" class="form-control">
                                                 <option value="">- 선택 -</option>
-                                                <option value="0">건조</option>
-                                                <option value="2">미끈거리지 않는 눅눅함</option>
-                                                <option value="2W">미끈거리지 않는 젖음</option>
-                                                <option value="4">미끈거리지 않는 빛남</option>
-                                                <option value="6">0.5cm 까지 늘어남</option>
-                                                <option value="8">0.5 ~ 2.5Cm 사이의 길이로 늘어남</option>
-                                                <option value="10">2.5cm 이상 늘어남</option>
+                                                <option value="L_ZERO">건조</option>
+                                                <option value="L_TWO">미끈거리지 않는 눅눅함</option>
+                                                <option value="L_TWO_W">미끈거리지 않는 젖음</option>
+                                                <option value="L_FOUR">미끈거리지 않는 빛남</option>
+                                                <option value="L_SIX">0.5cm 까지 늘어남</option>
+                                                <option value="L_EIGHT">0.5 ~ 2.5Cm 사이의 길이로 늘어남</option>
+                                                <option value="L_TEN">2.5cm 이상 늘어남</option>
                                             </select>
 
                                             <div class="checkbox" style="margin-top: 25px;">
                                                 <span>State 1:</span><br/>
                                                 <label>
-                                                    <input type="checkbox" name="state1_d" value="" id="state1_d" class="chkState1"/>
+                                                    <input type="checkbox" name="state1D" value="S1_D" id="state1_d" class="chkState1"/>
                                                     D(눅눅함)
                                                 </label>
                                                 &nbsp;&nbsp;&nbsp;
                                                 <label>
-                                                    <input type="checkbox" name="state1_w" value="" id="state1_w" class="chkState1"/>
+                                                    <input type="checkbox" name="state1W" value="S1_W" id="state1_w" class="chkState1"/>
                                                     W(젖음)
                                                 </label>
                                                 &nbsp;&nbsp;&nbsp;
                                                 <label>
-                                                    <input type="checkbox" name="state1_s" value="" id="state1_s" class="chkState1"/>
+                                                    <input type="checkbox" name="state1S" value="S1_S" id="state1_s" class="chkState1"/>
                                                     S(빛남)
                                                 </label>
                                             </div>
@@ -123,40 +123,40 @@
                                                 <span>State 2:</span><br/>
                                                 <div>
                                                     <label>
-                                                        <input type="checkbox" name="state2[]" value="C" class="chkState2"/>
+                                                        <input type="checkbox" name="state2C" value="S2_C" class="chkState2"/>
                                                         C(혼탁)
                                                     </label>
                                                     &nbsp;&nbsp;&nbsp;
                                                     <label>
-                                                        <input type="checkbox" name="state2[]" value="CK" class="chkState2">
+                                                        <input type="checkbox" name="state2CK" value="S2_CK" class="chkState2">
                                                         C/K(일부혼탁/일부투명)
                                                     </label>
                                                 </div>
                                                 <div>
                                                     <label>
-                                                        <input type="checkbox" name="state2[]" value="G" class="chkState2"/>
+                                                        <input type="checkbox" name="state2G" value="S2_G" class="chkState2"/>
                                                         G(쫀득쫀득한)
                                                     </label>
                                                     &nbsp;&nbsp;&nbsp;
                                                     <label>
-                                                        <input type="checkbox" name="state2[]" value="G" class="chkState2"/>
+                                                        <input type="checkbox" name="state2K" value="S2_K" class="chkState2"/>
                                                         K(투명한)
                                                     </label>
                                                 </div>
                                                 <di>
                                                     <label>
-                                                        <input type="checkbox" name="state2[]" value="L" class="chkState2"/>
+                                                        <input type="checkbox" name="state2L" value="S2_L" class="chkState2"/>
                                                         L(미끈거리는)
                                                     </label>
                                                     &nbsp;&nbsp;&nbsp;
                                                     <label>
-                                                        <input type="checkbox" name="state2[]" value="P" class="chkState2"/>
+                                                        <input type="checkbox" name="state2P" value="S2_P" class="chkState2"/>
                                                         P(크림같은)
                                                     </label>
                                                 </di>
                                                 <div>
                                                     <label>
-                                                        <input type="checkbox" name="state2[]" value="Y" class="chkState2"/>
+                                                        <input type="checkbox" name="state2Y" value="S2_Y" class="chkState2"/>
                                                         Y(노랑색)
                                                     </label>
                                                 </div>

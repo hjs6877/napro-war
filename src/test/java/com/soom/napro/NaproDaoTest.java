@@ -1,4 +1,4 @@
-package com.soom;
+package com.soom.napro;
 
 import com.soom.entity.NaproEvent;
 import com.soom.napro.NaproDao;

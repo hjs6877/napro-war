@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * summary:
@@ -25,13 +26,79 @@ public class NaproService {
     @Transactional
     public void registerNaproData(int eventId, NaproData naproData) {
         NaproEvent naproEvent = naproDao.findByEventId(eventId);
-
+        int score = 0;
+        String totalCode = "";
 
         if(naproEvent == null){
             naproEvent = new NaproEvent();
             Date curDate = new Date();
 
-            naproEvent.setTitle(naproData.getVaginaViscosity().concat(naproData.getVaginaState())); // TODO 결과 코드 생성해야 됨.
+
+            if(naproData.getMense().equals(NaproEnum.M_NO)){
+                NaproEnum vaginaLevel = naproData.getVaginaLevel();
+                NaproEnum S1_D = naproData.getState1D();
+                NaproEnum S1_W = naproData.getState1W();
+                NaproEnum S1_S = naproData.getState1S();
+                NaproEnum S2_C = naproData.getState2C();
+                NaproEnum S2_CK = naproData.getState2CK();
+                NaproEnum S2_G = naproData.getState2G();
+                NaproEnum S2_K = naproData.getState2K();
+                NaproEnum S2_L = naproData.getState2L();
+                NaproEnum S2_P = naproData.getState2P();
+                NaproEnum S2_Y = naproData.getState2Y();
+
+                if(vaginaLevel != null){
+                    score += vaginaLevel.getScore();
+                    totalCode.concat(vaginaLevel.getCode());
+                }
+                if(S1_D != null){
+                    score += S1_D.getScore();
+                    totalCode.concat(S1_D.getCode());
+                }
+                if(S1_W != null){
+                    score += S1_W.getScore();
+                    totalCode.concat(S1_W.getCode());
+                }
+                if(S1_S != null){
+                    score += S1_S.getScore();
+                    totalCode.concat(vaginaLevel.getCode());
+                }
+                if(S2_C != null){
+                    score += S2_C.getScore();
+                    totalCode.concat(S1_S.getCode());
+                }
+                if(S2_CK != null){
+                    score += S2_CK.getScore();
+                    totalCode.concat(S2_CK.getCode());
+                }
+                if(S2_G != null){
+                    score += S2_G.getScore();
+                    totalCode.concat(S2_G.getCode());
+                }
+                if(S2_K != null){
+                    score += S2_K.getScore();
+                    totalCode.concat(S2_K.getCode());
+                }
+                if(S2_L != null){
+                    score += S2_L.getScore();
+                    totalCode.concat(S2_L.getCode());
+                }
+                if(S2_P != null){
+                    score += S2_P.getScore();
+                    totalCode.concat(S2_P.getCode());
+                }
+                if(S2_Y != null){
+                    score += S2_Y.getScore();
+                    totalCode.concat(S2_Y.getCode());
+                }
+            }else{
+                NaproEnum mense = naproData.getMense();
+                String existMucus = naproData.getExistMucus();
+
+                totalCode.concat(mense.getCode()).concat(existMucus);
+            }
+
+            naproEvent.setTitle(totalCode); // TODO 코드를 조합해서 넣어준다.
             naproEvent.setStartDate(curDate);
             naproEvent.setEndDate(curDate);
 
@@ -39,11 +106,33 @@ public class NaproService {
             naproDao.save(naproEvent);
 
             naproData.setEventId(naproEvent.getEventId());
+            naproData.setScore(score);
+            naproData.setTotalCode(totalCode);
             naproEvent.addNaproData(naproData);
 
         }else{
-            naproEvent.getNaproDataList().add(naproData);
-            naproDao.save(naproEvent);  // TODO findByEventId로 영속화 했으므로 save 안해도 되지 않을까? 테스트 돌려보기
+            naproEvent.addNaproData(naproData);
+            naproData.setScore(score);
+            naproData.setTotalCode(totalCode);
+            /**
+             * TODO
+             * score가 가장 큰 NaproData를 찾는다.
+             * 해당 NaproData의 total code를 넣어준다.
+             */
+            List<NaproData> naproDataList = naproEvent.getNaproDataList();
+            int maxScore = 0;
+            String maxTotalCode = "";
+            for(NaproData naData : naproDataList){
+                int sc = naData.getScore();
+                String code = naData.getTotalCode();
+
+                if(naData.getScore() > maxScore){
+                    maxScore = sc;
+                    maxTotalCode = code;
+                }
+            }
+            naproEvent.setTitle(maxTotalCode);
+//            naproDao.save(naproEvent);  // TODO findByEventId로 영속화 했으므로 save 안해도 되지 않을까? 테스트 돌려보기
         }
 
 

@@ -1,15 +1,12 @@
-package com.soom;
+package com.soom.napro;
 
 import com.soom.entity.NaproData;
 import com.soom.entity.NaproEvent;
-import com.soom.napro.NaproDao;
-import com.soom.napro.NaproService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -34,20 +31,20 @@ public class NaproServiceTest {
     private NaproDao naproDao;
 
     @Test
-    @Transactional
+//    @Transactional
     public void registerNaproDataTest(){
         NaproData naproData = new NaproData();
-        naproData.setMenseQuantity("L");
-        naproData.setMenseState("R");
-        naproData.setVaginaViscosity("10");
-        naproData.setVaginaState("B");
+        naproData.setMense("M_NO");
+        naproData.setVaginaLevel(NaproEnum.L_TEN);
+        naproData.setState1D(NaproEnum.S1_D);
+        naproData.setState2L(NaproEnum.S2_L);
         naproData.setCreateDate(new Date());
 
         naproService.registerNaproData(1, naproData);
 
         NaproEvent naproEvent = naproDao.findByEventId(1);
 
-        assertEquals(naproEvent.getTitle(), "10B");
+        assertEquals(naproEvent.getTitle(), "");
         assertEquals(naproEvent.getNaproDataList().size(), 1);
     }
 }

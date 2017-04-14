@@ -19,6 +19,16 @@ $(document).ready(function(){
          $('#naproModal').modal();
       });
 
+      $(".napro-data-row").bind("click", function(){
+         $("#mode").val("modify");
+         // TODO 폼에 데이터를 셋팅 함.
+         // 폼 요소의 초기화
+         changeStateWhenManseElementState();
+         changeStateWhenLevelElementState();
+         changeStateWhenState1ElementState();
+         $('#naproModal').modal();
+      });
+
       $("#sltMense").bind("change", function(){
          changeStateWhenManseElementState();
       });
@@ -43,11 +53,21 @@ $(document).ready(function(){
             $("#btnDelete").attr("disabled", false);
          }
       });
+
+      $("#btnRegister").bind("click", function(){
+         alert("폼 전송");
+         /**
+          * TODO
+          * 1. 비활성화 되어 있는 상태의 요소들은 모두 빈값으로 처리한다.
+          * 2. 폼 전송.
+          * 3. 서버에서 전송된 데이터 확인하기
+          */
+      });
    }
 
    function changeStateWhenManseElementState(){
       var menseVal = $("#sltMense").val();
-      if(menseVal == "NO"){
+      if(menseVal == "M_NO"){
          $(".existMucus").attr("disabled", true);
          $("#sltLevel").attr("disabled", false);
       }else{
@@ -70,31 +90,45 @@ $(document).ready(function(){
    }
 
    function changeStateWhenState1ElementState(event){
-      if(event.currentTarget.id == "state1_d"){
+      if(event){
+         if(event.currentTarget.id == "state1_d"){
+            if($("#state1_d").is(":checked")){
+               $("#state1_w").attr("disabled", true);
+               $("#state1_s").attr("disabled", true);
+            }else{
+               $("#state1_w").attr("disabled", false);
+               $("#state1_s").attr("disabled", false);
+            }
+         }else if(event.currentTarget.id == "state1_w"){
+            if($("#state1_w").is(":checked")){
+               $("#state1_d").attr("disabled", true);
+               $("#state1_s").attr("disabled", true);
+            }else{
+               $("#state1_d").attr("disabled", false);
+               $("#state1_s").attr("disabled", false);
+            }
+         }else if(event.currentTarget.id == "state1_s") {
+            if($("#state1_s").is(":checked")){
+               $("#state1_w").attr("disabled", true);
+               $("#state1_d").attr("disabled", true);
+            }else{
+               $("#state1_w").attr("disabled", false);
+               $("#state1_d").attr("disabled", false);
+            }
+         }
+      }else{
          if($("#state1_d").is(":checked")){
             $("#state1_w").attr("disabled", true);
             $("#state1_s").attr("disabled", true);
-         }else{
+         }else if($("#state1_w").is(":checked")){
             $("#state1_w").attr("disabled", false);
             $("#state1_s").attr("disabled", false);
-         }
-      }else if(event.currentTarget.id == "state1_w"){
-         if($("#state1_w").is(":checked")){
-            $("#state1_d").attr("disabled", true);
-            $("#state1_s").attr("disabled", true);
-         }else{
-            $("#state1_d").attr("disabled", false);
-            $("#state1_s").attr("disabled", false);
-         }
-      }else if(event.currentTarget.id == "state1_s") {
-         if($("#state1_s").is(":checked")){
-            $("#state1_w").attr("disabled", true);
-            $("#state1_d").attr("disabled", true);
-         }else{
+         }else if($("#state1_s").is(":checked")){
             $("#state1_w").attr("disabled", false);
             $("#state1_d").attr("disabled", false);
          }
       }
+
    }
 
 

@@ -36,7 +36,7 @@
                         <th>우선순위</th>
                         </thead>
                         <tbody>
-                        <tr>
+                        <tr class="napro-data-row">
                             <td><input type="radio" name="rdo_napro_list"/></td>
                             <td>10LDP</td>
                             <td>1</td>
@@ -46,7 +46,7 @@
                 </div>
                 <!-- Modal -->
                 <div class="modal fade" id="naproModal" role="dialog">
-                    <form>
+                    <form name="naproDataForm" method="POST" id="naproDataForm">
                         <input type="hidden" name="mode" id="mode" val=""/>
                         <div class="modal-dialog">
                             <!-- Modal content-->

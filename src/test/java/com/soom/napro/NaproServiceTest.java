@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -31,20 +32,27 @@ public class NaproServiceTest {
     private NaproDao naproDao;
 
     @Test
-//    @Transactional
+    @Transactional
     public void registerNaproDataTest(){
-        NaproData naproData = new NaproData();
-        naproData.setMense("M_NO");
-        naproData.setVaginaLevel(NaproEnum.L_TEN);
-        naproData.setState1D(NaproEnum.S1_D);
-        naproData.setState2L(NaproEnum.S2_L);
-        naproData.setCreateDate(new Date());
+        NaproData naproData1 = new NaproData();
+        naproData1.setMense(NaproEnum.M_NO);
+        naproData1.setVaginaLevel(NaproEnum.L_FOUR);
+        naproData1.setState1D(NaproEnum.S1_D);
+        naproData1.setState2L(NaproEnum.S2_L);
+        naproData1.setCreateDate(new Date());
 
-        naproService.registerNaproData(1, naproData);
+        NaproData naproData2 = new NaproData();
+        naproData2.setMense(NaproEnum.M_B);
+        naproData2.setExistMucus("Y");
+
+        naproData2.setCreateDate(new Date());
+
+        naproService.registerNaproData(1, naproData1);
+        naproService.registerNaproData(1, naproData2);
 
         NaproEvent naproEvent = naproDao.findByEventId(1);
 
-        assertEquals(naproEvent.getTitle(), "");
-        assertEquals(naproEvent.getNaproDataList().size(), 1);
+        assertEquals(naproEvent.getTitle(), "4DL");
+        assertEquals(naproEvent.getNaproDataList().size(), 2);
     }
 }

@@ -25,6 +25,7 @@ public class NaproData {
     private int naproDataId;
 
     @Column(name = "mense")
+    @Enumerated(EnumType.STRING)
     private NaproEnum mense;
 
     @Column(name = "exist_mucus")

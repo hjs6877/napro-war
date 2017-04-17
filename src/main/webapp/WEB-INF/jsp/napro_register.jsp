@@ -46,8 +46,11 @@
                 </div>
                 <!-- Modal -->
                 <div class="modal fade" id="naproModal" role="dialog">
-                    <form name="naproDataForm" method="POST" id="naproDataForm">
-                        <input type="hidden" name="mode" id="mode" val=""/>
+                    <form name="naproDataForm" action="${pageContext.request.contextPath}/np/registration" method="POST" id="naproDataForm" >
+                        <input type="hidden" name="mode" id="mode" value="${mode}"/>
+                        <input type="hidden" name="eventId" value="${eventId}"/>
+                        <input type="hidden" name="startDate" value="${startDate}"/>
+
                         <div class="modal-dialog">
                             <!-- Modal content-->
                             <div class="modal-content">

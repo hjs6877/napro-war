@@ -40,15 +40,16 @@ public class NaproServiceTest {
         naproData1.setState1D(NaproEnum.S1_D);
         naproData1.setState2L(NaproEnum.S2_L);
         naproData1.setCreateDate(new Date());
+        naproData1.setEventId(1);
 
         NaproData naproData2 = new NaproData();
         naproData2.setMense(NaproEnum.M_B);
         naproData2.setExistMucus("Y");
-
+        naproData2.setEventId(1);
         naproData2.setCreateDate(new Date());
 
-        naproService.registerNaproData(1, naproData1);
-        naproService.registerNaproData(1, naproData2);
+        naproService.registerNaproData(naproData1, "20170404");
+        naproService.registerNaproData(naproData2, "20170404");
 
         NaproEvent naproEvent = naproDao.findByEventId(1);
 

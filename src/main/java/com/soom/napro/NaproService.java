@@ -26,17 +26,18 @@ public class NaproService {
     private NaproDao naproDao;
 
     @Transactional
-    public void registerNaproData(int eventId, NaproData naproData) {
-        NaproEvent naproEvent = naproDao.findByEventId(eventId);
+    public NaproData registerNaproData(NaproData naproData, String startDate) {
+        NaproEvent naproEvent = naproDao.findByEventId(naproData.getEventId());
         int score = 0;
         String totalCode = "";
+        Date curDate = new Date();
 
         if(naproEvent == null){
             naproEvent = new NaproEvent();
-            Date curDate = new Date();
 
-            naproEvent.setStartDate(curDate);
-            naproEvent.setEndDate(curDate);
+
+            naproEvent.setStartDate(startDate);
+            naproEvent.setEndDate(startDate);
 
             // 키 전략이 Identity이므로 영속화를 먼저 시키고 난 후, event_id를 얻어서 naproData를 저장한다.
             naproDao.save(naproEvent);
@@ -52,6 +53,8 @@ public class NaproService {
         naproData.setScore(score);
         naproData.setTotalCode(totalCode);
 
+        naproData.setCreateDate(curDate);
+        naproData.setModifyDate(curDate);
         naproEvent.addNaproData(naproData);
 
         /**
@@ -65,7 +68,7 @@ public class NaproService {
             int sc = naData.getScore();
             String code = naData.getTotalCode();
 
-            if(naData.getScore() > maxScore){
+            if(naData.getScore() >= maxScore){
                 maxScore = sc;
                 maxTotalCode = code;
             }
@@ -73,6 +76,7 @@ public class NaproService {
 
         naproEvent.setTitle(maxTotalCode);
 
+        return naproData;
     }
 
     private Map<String, Object> calculateNaproData(NaproData naproData) {
@@ -108,11 +112,11 @@ public class NaproService {
             }
             if(S1_S != null){
                 score += S1_S.getScore();
-                totalCode += vaginaLevel.getCode();
+                totalCode += S1_S.getCode();
             }
             if(S2_C != null){
                 score += S2_C.getScore();
-                totalCode += S1_S.getCode();
+                totalCode += S2_C.getCode();
             }
             if(S2_CK != null){
                 score += S2_CK.getScore();
@@ -137,6 +141,10 @@ public class NaproService {
             if(S2_Y != null){
                 score += S2_Y.getScore();
                 totalCode += S2_Y.getCode();
+            }
+
+            if(totalCode.isEmpty()){
+                totalCode += naproData.getMense().getCode();
             }
         }else{
             NaproEnum mense = naproData.getMense();

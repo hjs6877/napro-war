@@ -5,8 +5,6 @@ $(document).ready(function(){
    bindEvent();
    init();
 
-
-
    function init(){
       changeStateWhenManseElementState();
       changeStateWhenLevelElementState();
@@ -16,11 +14,15 @@ $(document).ready(function(){
    function bindEvent(){
       $("#btn_register_napro").bind("click", function(){
          $("#mode").val("register");
+         changeButtonStateWhenModeState();
+
          $('#naproModal').modal();
       });
 
       $(".napro-data-row").bind("click", function(){
          $("#mode").val("modify");
+         changeButtonStateWhenModeState();
+
          // TODO 폼에 데이터를 셋팅 함.
          // 폼 요소의 초기화
          changeStateWhenManseElementState();
@@ -41,27 +43,18 @@ $(document).ready(function(){
          changeStateWhenState1ElementState(event);
       });
 
-      $('#naproModal').on('show.bs.modal', function (e) {
-         var mode = $("#mode").val();
-         if(mode == "register"){
-            $("#btnRegister").attr("disabled", false);
-            $("#btnModify").attr("disabled", true);
-            $("#btnDelete").attr("disabled", true);
-         }else{
-            $("#btnRegister").attr("disabled", true);
-            $("#btnModify").attr("disabled", false);
-            $("#btnDelete").attr("disabled", false);
-         }
-      });
 
       $("#btnRegister").bind("click", function(){
-         alert("폼 전송");
          /**
           * TODO
-          * 1. 비활성화 되어 있는 상태의 요소들은 모두 빈값으로 처리한다.
+          * 1. 비활성화 되어 있는 상태의 요소들은 모두 빈값으로 처리한다.(이건 서버에서..)
           * 2. 폼 전송.
           * 3. 서버에서 전송된 데이터 확인하기
           */
+         if(confirm("선택한 정보를 저장하시겠습니까?")){
+            $("#naproDataForm").submit();
+         }
+
       });
    }
 
@@ -129,6 +122,20 @@ $(document).ready(function(){
          }
       }
 
+   }
+
+   function changeButtonStateWhenModeState(){
+      var mode = $("#mode").val();
+
+      if(mode == "register"){
+         $("#btnRegister").attr("disabled", false);
+         $("#btnModify").attr("disabled", true);
+         $("#btnDelete").attr("disabled", true);
+      }else{
+         $("#btnRegister").attr("disabled", true);
+         $("#btnModify").attr("disabled", false);
+         $("#btnDelete").attr("disabled", false);
+      }
    }
 
 

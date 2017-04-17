@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 /**
  * summary:
  * <p> description:
@@ -29,13 +30,28 @@ public class NaproController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String registerNaproForm(){
+    public String registerNaproForm(@RequestParam(name = "eventId", defaultValue = "0")int targetEventId,
+                                    @RequestParam(name = "startDate", required = false, defaultValue = "")String startDate,
+                                    Model model){
+        List<NaproData> naproDataList = null;
+        int eventId = 0;
+
+        // TODO 등록되어 있는 Napro 데이터를 조회한다.
+//            naproDataList = Napro Date 조회
+
+        model.addAttribute("eventId", eventId);
+        model.addAttribute("startDate", startDate);
         return "napro_register";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registerNapro(@RequestParam(name = "eventId", required = false) int eventId, NaproData naproData, Model model){
-        naproService.registerNaproData(eventId, naproData);
+    public String registerNapro(@RequestParam(name = "startDate")String startDate,
+                                NaproData naproData, Model model){
+
+        NaproData savedNaproData = naproService.registerNaproData(naproData, startDate);
+
+        model.addAttribute("eventId", savedNaproData.getEventId());
+        model.addAttribute("startDate", startDate);
         return "napro_register";
     }
 }

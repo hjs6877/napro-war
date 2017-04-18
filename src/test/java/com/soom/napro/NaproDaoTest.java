@@ -1,7 +1,6 @@
 package com.soom.napro;
 
 import com.soom.entity.NaproEvent;
-import com.soom.napro.NaproDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,7 @@ public class NaproDaoTest {
 
     @Test
     public void findByEventIdTest(){
-        NaproEvent naproEvent = naproDao.findByEventId(1);
+        NaproEvent naproEvent = naproDao.findById(1);
         assertTrue(naproEvent == null);
     }
 

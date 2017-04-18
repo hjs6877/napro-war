@@ -22,18 +22,18 @@ public class NaproEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "event_id")
-    private int eventId;
+    private int id;
 
     @Column(name = "title")
     private String title;
 
     @Column(name = "start_date")
-    private String startDate;
+    private String start;
 
     @Column(name = "end_date")
-    private String endDate;
+    private String end;
 
-    @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "event_id")
     private List<NaproData> naproDataList;
 

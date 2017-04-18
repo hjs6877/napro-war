@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * summary:
@@ -25,9 +22,26 @@ public class NaproService {
     @Autowired
     private NaproDao naproDao;
 
+    public List<NaproEvent> findAllNaproEvent(){
+        List<NaproEvent> naproEvents = naproDao.findAll();
+        for(NaproEvent naproEvent : naproEvents){
+            naproEvent.setNaproDataList(null);
+        }
+        return naproEvents;
+    }
+    public List<NaproData> findNaproDataByeventId(int eventId){
+        NaproEvent naproEvent = naproDao.findById(eventId);
+        List<NaproData> naproDatas = naproEvent != null ? naproEvent.getNaproDataList() : null;
+        return naproDatas;
+    }
+
     @Transactional
-    public NaproData registerNaproData(NaproData naproData, String startDate) {
-        NaproEvent naproEvent = naproDao.findByEventId(naproData.getEventId());
+    public NaproEvent registerNaproData(NaproData naproData, String startDate) {
+        String year = startDate.substring(0, 4);
+        String month = startDate.substring(4, 6);
+        String day = startDate.substring(6);
+        String start = year + "-" + month + "-" + day;
+        NaproEvent naproEvent = naproDao.findById(naproData.getId());
         int score = 0;
         String totalCode = "";
         Date curDate = new Date();
@@ -36,8 +50,8 @@ public class NaproService {
             naproEvent = new NaproEvent();
 
 
-            naproEvent.setStartDate(startDate);
-            naproEvent.setEndDate(startDate);
+            naproEvent.setStart(start);
+            naproEvent.setEnd(start);
 
             // 키 전략이 Identity이므로 영속화를 먼저 시키고 난 후, event_id를 얻어서 naproData를 저장한다.
             naproDao.save(naproEvent);
@@ -49,7 +63,7 @@ public class NaproService {
         score = (int) calculatedData.get("score");
         totalCode = (String) calculatedData.get("totalCode");
 
-        naproData.setEventId(naproEvent.getEventId());
+        naproData.setId(naproEvent.getId());
         naproData.setScore(score);
         naproData.setTotalCode(totalCode);
 
@@ -76,7 +90,7 @@ public class NaproService {
 
         naproEvent.setTitle(maxTotalCode);
 
-        return naproData;
+        return naproEvent;
     }
 
     private Map<String, Object> calculateNaproData(NaproData naproData) {

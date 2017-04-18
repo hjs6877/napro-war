@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,17 +31,27 @@
                 </div>
                 <div class="row" style="margin-top: 10px; border-top: 1px solid #e1e1e1">
                     <table class="table">
-                        <thead>
-                        <th>라디오박스</th>
+                        <thead class="text-center">
                         <th>기록 내용</th>
-                        <th>우선순위</th>
+                        <th>기록 일시</th>
+                        <th>점수</th>
                         </thead>
                         <tbody>
-                        <tr class="napro-data-row">
-                            <td><input type="radio" name="rdo_napro_list"/></td>
-                            <td>10LDP</td>
-                            <td>1</td>
-                        </tr>
+                        <c:choose>
+                            <c:when test="${naproDataList == null}">
+                                <tr><td colspan="3" class="text-center">기록한 내용이 없습니다.</td></tr>
+                            </c:when>
+                            <c:otherwise>
+                                <c:forEach var="naproData" items="${naproDataList}" >
+                                    <tr class="napro-data-row">
+                                        <td>${naproData.totalCode}</td>
+                                        <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
+                                                            value="${naproData.createDate}" /></td>
+                                        <td class="text-center">${naproData.score}</td>
+                                    </tr>
+                                </c:forEach>
+                            </c:otherwise>
+                        </c:choose>
                         </tbody>
                     </table>
                 </div>
@@ -48,8 +59,8 @@
                 <div class="modal fade" id="naproModal" role="dialog">
                     <form name="naproDataForm" action="${pageContext.request.contextPath}/np/registration" method="POST" id="naproDataForm" >
                         <input type="hidden" name="mode" id="mode" value="${mode}"/>
-                        <input type="hidden" name="eventId" value="${eventId}"/>
-                        <input type="hidden" name="startDate" value="${startDate}"/>
+                        <input type="hidden" name="id" value="${id}"/>
+                        <input type="hidden" name="start" value="${start}"/>
 
                         <div class="modal-dialog">
                             <!-- Modal content-->

@@ -2,11 +2,15 @@ package com.soom.napro;
 
 import com.soom.entity.NaproData;
 import com.soom.entity.NaproEvent;
+import com.soom.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * summary:
@@ -36,7 +40,7 @@ public class NaproService {
     }
 
     @Transactional
-    public NaproEvent registerNaproData(NaproData naproData, String startDate) {
+    public NaproEvent registerNaproData(User user, NaproData naproData, String startDate) {
         String year = startDate.substring(0, 4);
         String month = startDate.substring(4, 6);
         String day = startDate.substring(6);
@@ -49,7 +53,7 @@ public class NaproService {
         if(naproEvent == null){
             naproEvent = new NaproEvent();
 
-
+            naproEvent.setUser(user);
             naproEvent.setStart(start);
             naproEvent.setEnd(start);
 

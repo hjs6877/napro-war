@@ -3,6 +3,10 @@
  */
 var offset=location.href.indexOf(location.host)+location.host.length;
 var contextPath=location.href.substring(offset,location.href.indexOf('/',offset+1));
+if(contextPath != "napro"){
+    contextPath = "/";
+}
+
 $(document).ready(function(){
     $("#menu-toggle").click(function(e) {
         e.preventDefault();

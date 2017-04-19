@@ -10,7 +10,7 @@
             </a>
         </li>
         <li>
-            <a href="${pageContext.request.contextPath}/np">Napro Calendar</a>
+            <a href="${pageContext.request.contextPath}/np/napro_home">Napro Calendar</a>
         </li>
         <li>
             <a href="#">Napro Chart</a>

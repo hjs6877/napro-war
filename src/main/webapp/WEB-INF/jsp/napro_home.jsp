@@ -25,9 +25,6 @@
                     </div>
                 </div>
                 <div class="row text-center" id="calendar" style="margin-top: 20px;"></div>
-                <div class="row">
-                    <a href="${pageContext.request.contextPath}/np/registration">Move to Napro registration page.</a>
-                </div>
             </div>
         </div>
         <!-- /#page-content-wrapper -->

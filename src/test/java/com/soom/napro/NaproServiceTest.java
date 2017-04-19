@@ -2,6 +2,7 @@ package com.soom.napro;
 
 import com.soom.entity.NaproData;
 import com.soom.entity.NaproEvent;
+import com.soom.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ public class NaproServiceTest {
     @Test
     @Transactional
     public void registerNaproDataTest(){
+        User user1 = new User();
+        user1.setId("soomee1");
         NaproData naproData1 = new NaproData();
         naproData1.setMense(NaproEnum.M_NO);
         naproData1.setVaginaLevel(NaproEnum.L_FOUR);
@@ -42,18 +45,14 @@ public class NaproServiceTest {
         naproData1.setCreateDate(new Date());
         naproData1.setId(1);
 
-        NaproData naproData2 = new NaproData();
-        naproData2.setMense(NaproEnum.M_B);
-        naproData2.setExistMucus("Y");
-        naproData2.setId(1);
-        naproData2.setCreateDate(new Date());
 
-        naproService.registerNaproData(naproData1, "20170404");
-        naproService.registerNaproData(naproData2, "20170404");
+
+        naproService.registerNaproData(user1, naproData1, "20170404");
+
 
         NaproEvent naproEvent = naproDao.findById(1);
 
         assertEquals(naproEvent.getTitle(), "4DL");
-        assertEquals(naproEvent.getNaproDataList().size(), 2);
+
     }
 }

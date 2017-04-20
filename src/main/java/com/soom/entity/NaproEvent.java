@@ -37,10 +37,6 @@ public class NaproEvent {
     @JoinColumn(name = "event_id")
     private List<NaproData> naproDataList;
 
-    @OneToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user;
-
     public void addNaproData(NaproData naproData){
         if( naproDataList == null ){
             naproDataList = new ArrayList<NaproData>();

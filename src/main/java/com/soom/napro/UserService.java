@@ -18,6 +18,10 @@ import java.util.Date;
  */
 @Service
 public class UserService {
+    public static String LOGIN_FAIL_CODE = "login-fail";
+    public static String LOGIN_FAIL_MSG = "아이디 또는 비밀번호가 틀립니다.";
+    public static String LOGIN_SUCCESS_CODE = "login-success";
+    public static String LOGIN_SUCCESS_MSG = "";
     @Autowired
     private UserDao userDao;
 
@@ -34,7 +38,7 @@ public class UserService {
         return savedUser;
     }
 
-    public User findUserByIdAndUser(User user){
+    public User findUserByIdAndPassword(User user){
         String id = user.getId();
         String password = user.getPassword();
         String hashedPassword = CipherUtil.hash(password);

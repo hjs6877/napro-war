@@ -4,7 +4,7 @@
 var offset=location.href.indexOf(location.host)+location.host.length;
 var contextPath=location.href.substring(offset,location.href.indexOf('/',offset+1));
 if(contextPath != "napro"){
-    contextPath = "/";
+    contextPath = "";
 }
 
 $(document).ready(function(){

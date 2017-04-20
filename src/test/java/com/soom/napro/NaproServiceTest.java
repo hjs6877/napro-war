@@ -47,7 +47,7 @@ public class NaproServiceTest {
 
 
 
-        naproService.registerNaproData(user1, naproData1, "20170404");
+        naproService.registerNaproData( naproData1, "20170404");
 
 
         NaproEvent naproEvent = naproDao.findById(1);

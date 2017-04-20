@@ -3,6 +3,7 @@ package com.soom.napro;
 import com.soom.entity.NaproData;
 import com.soom.entity.NaproEvent;
 import com.soom.entity.User;
+import com.soom.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +33,9 @@ public class NaproController {
     @Autowired
     private NaproService naproService;
 
+    @Autowired
+    private UserDao userDao;
+
     @RequestMapping(value = "/napro_home")
     public String naproHome(){
         return "napro_home";
@@ -40,7 +44,10 @@ public class NaproController {
     @ResponseBody
     @RequestMapping(value = "/events")
     public List<NaproEvent> getEvents() {
-        List<NaproEvent> naproEvents = naproService.findAllNaproEvent();
+        String userId = SessionUtil.getLoginUserId();
+        User user = userDao.findOne(userId);
+        List<NaproEvent> naproEvents = user.getNaproEventList();
+
         return naproEvents;
     }
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
@@ -49,7 +56,6 @@ public class NaproController {
                                     @RequestParam(name = "start", required = false, defaultValue = "")String start,
                                     Model model){
 
-        // TODO 등록되어 있는 Napro 데이터를 조회한다.
         List<NaproData> naproDataList  = naproService.findNaproDataByeventId(targetEventId);
         if(naproDataList != null){
             naproDataList.sort(comparing(NaproData::getScore).reversed());
@@ -61,14 +67,10 @@ public class NaproController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registerNapro(HttpSession session,
-                                @RequestParam(name = "start")String start,
+    public String registerNapro(@RequestParam(name = "start")String start,
                                 NaproData naproData,
                                 RedirectAttributes redirectAttributes){
-        User user = new User();
-        user.setId((String) session.getAttribute("userId"));
-
-        NaproEvent naproEvent = naproService.registerNaproData(user, naproData, start);
+        NaproEvent naproEvent = naproService.registerNaproData(naproData, start);
         redirectAttributes.addAttribute("id", naproEvent.getId());
         redirectAttributes.addAttribute("start", start);
 

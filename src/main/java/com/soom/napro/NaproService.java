@@ -3,6 +3,7 @@ package com.soom.napro;
 import com.soom.entity.NaproData;
 import com.soom.entity.NaproEvent;
 import com.soom.entity.User;
+import com.soom.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,9 @@ public class NaproService {
     @Autowired
     private NaproDao naproDao;
 
+    @Autowired
+    private UserDao userDao;
+
     public List<NaproEvent> findAllNaproEvent(){
         List<NaproEvent> naproEvents = naproDao.findAll();
         for(NaproEvent naproEvent : naproEvents){
@@ -40,11 +44,13 @@ public class NaproService {
     }
 
     @Transactional
-    public NaproEvent registerNaproData(User user, NaproData naproData, String startDate) {
+    public NaproEvent registerNaproData(NaproData naproData, String startDate) {
+        String userId = SessionUtil.getLoginUserId();
         String year = startDate.substring(0, 4);
         String month = startDate.substring(4, 6);
         String day = startDate.substring(6);
         String start = year + "-" + month + "-" + day;
+        User user = userDao.findOne(userId);
         NaproEvent naproEvent = naproDao.findById(naproData.getId());
         int score = 0;
         String totalCode = "";
@@ -53,12 +59,12 @@ public class NaproService {
         if(naproEvent == null){
             naproEvent = new NaproEvent();
 
-            naproEvent.setUser(user);
             naproEvent.setStart(start);
             naproEvent.setEnd(start);
 
+            user.getNaproEventList().add(naproEvent);
             // 키 전략이 Identity이므로 영속화를 먼저 시키고 난 후, event_id를 얻어서 naproData를 저장한다.
-            naproDao.save(naproEvent);
+//            naproDao.save(naproEvent);
 
         }
 
@@ -93,6 +99,7 @@ public class NaproService {
         }
 
         naproEvent.setTitle(maxTotalCode);
+
 
         return naproEvent;
     }

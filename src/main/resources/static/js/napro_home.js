@@ -55,7 +55,9 @@ $(document).ready(function(){
                                     .find("tr").find("td").eq(clickedIndex).hasClass("fc-event-container");
 
             if(!existsEvent){
-                location.href = contextPath + '/np/registration?start=' + formattedDate;
+                var url = contextPath + '/np/registration?start=' + formattedDate;
+
+                location.href = url;
             }else{
                 alert("Napro 데이터를 추가 등록하시려면 Napro 이벤트를 클릭하세요.");
                 return;

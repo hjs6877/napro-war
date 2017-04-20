@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * summary:
@@ -19,7 +20,7 @@ import java.util.Date;
 @Data
 public class User {
     @Id
-    @Column(name = "id")
+    @Column(name = "user_id")
     private String id;
 
     @Column(name = "password")
@@ -32,6 +33,7 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
 
-    @OneToOne(mappedBy = "user")
-    private NaproEvent naproEvent;
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private List<NaproEvent> naproEventList;
 }

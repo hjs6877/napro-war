@@ -3,7 +3,6 @@ package com.soom.napro;
 import com.soom.entity.NaproData;
 import com.soom.entity.NaproEvent;
 import com.soom.entity.User;
-import com.soom.utils.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,8 +43,7 @@ public class NaproService {
     }
 
     @Transactional
-    public NaproEvent registerNaproData(NaproData naproData, String startDate) {
-        String userId = SessionUtil.getLoginUserId();
+    public NaproEvent registerNaproData(String userId, NaproData naproData, String startDate) {
         String year = startDate.substring(0, 4);
         String month = startDate.substring(4, 6);
         String day = startDate.substring(6);
@@ -62,10 +60,7 @@ public class NaproService {
             naproEvent.setStart(start);
             naproEvent.setEnd(start);
 
-            user.getNaproEventList().add(naproEvent);
-            // 키 전략이 Identity이므로 영속화를 먼저 시키고 난 후, event_id를 얻어서 naproData를 저장한다.
-//            naproDao.save(naproEvent);
-
+            user.addNaproEvent(naproEvent);
         }
 
         Map<String, Object> calculatedData = calculateNaproData(naproData);

@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>Napro Calendar</title>
+    <title>Napro Login</title>
     <jsp:include page="include/header.jsp"/>
     <link href="${pageContext.request.contextPath}/css/napro_login.css" rel="stylesheet">
 </head>

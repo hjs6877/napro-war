@@ -39,7 +39,7 @@ public class NaproEvent {
 
     public void addNaproData(NaproData naproData){
         if( naproDataList == null ){
-            naproDataList = new ArrayList<NaproData>();
+            naproDataList = new ArrayList<>();
         }
         naproDataList.add(naproData);
     }

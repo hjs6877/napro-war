@@ -3,6 +3,7 @@ package com.soom.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,4 +37,11 @@ public class User {
     @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private List<NaproEvent> naproEventList;
+
+    public void addNaproEvent(NaproEvent naproEvent){
+        if( naproEventList == null ){
+            naproEventList = new ArrayList<>();
+        }
+        naproEventList.add(naproEvent);
+    }
 }

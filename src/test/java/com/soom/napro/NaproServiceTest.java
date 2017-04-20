@@ -1,7 +1,6 @@
 package com.soom.napro;
 
 import com.soom.entity.NaproData;
-import com.soom.entity.NaproEvent;
 import com.soom.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,13 +29,20 @@ public class NaproServiceTest {
     private NaproService naproService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private NaproDao naproDao;
 
     @Test
     @Transactional
     public void registerNaproDataTest(){
-        User user1 = new User();
-        user1.setId("soomee1");
+        User user = new User();
+        user.setId("soomee");
+        user.setPassword("7725");
+
+        userService.registerUser(user);
+
         NaproData naproData1 = new NaproData();
         naproData1.setMense(NaproEnum.M_NO);
         naproData1.setVaginaLevel(NaproEnum.L_FOUR);
@@ -47,12 +53,11 @@ public class NaproServiceTest {
 
 
 
-        naproService.registerNaproData( naproData1, "20170404");
+        naproService.registerNaproData(user.getId(), naproData1, "2017-04-04");
 
 
-        NaproEvent naproEvent = naproDao.findById(1);
 
-        assertEquals(naproEvent.getTitle(), "4DL");
+        assertEquals(naproData1.getTotalCode(), "4DL");
 
     }
 }

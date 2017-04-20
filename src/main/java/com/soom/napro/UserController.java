@@ -38,17 +38,22 @@ public class UserController {
     public Result naproLogin(User user, Result result){
         User resultUser = userService.findUserByIdAndPassword(user);
 
-        if(resultUser == null){
-            result.setCode(UserService.LOGIN_FAIL_CODE);
-            result.setMessage(UserService.LOGIN_FAIL_MSG);
-        }else{
-            resultUser.setPassword("");
-            user.setNaproEventList(null);
-            result.setCode(UserService.LOGIN_SUCCESS_CODE);
-            result.setMessage(UserService.LOGIN_SUCCESS_MSG);
+        try{
+            if(resultUser == null){
+                result.setCode(UserService.LOGIN_FAIL_CODE);
+                result.setMessage(UserService.LOGIN_FAIL_MSG);
+            }else{
+                resultUser.setPassword("");
+                user.setNaproEventList(null);
+                result.setCode(UserService.LOGIN_SUCCESS_CODE);
+                result.setMessage(UserService.LOGIN_SUCCESS_MSG);
 
-            SessionUtil.setLoginInfo(user);
+                SessionUtil.setLoginInfo(user);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
         return result;
     }
 }

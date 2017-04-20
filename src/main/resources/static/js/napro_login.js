@@ -23,6 +23,7 @@ $(document).ready(function(){
             alert("패스워드를 입력하세요.");
             return;
          }
+
          $.ajax({
             type:"POST",
             url: contextPath + '/np/login',

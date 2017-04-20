@@ -70,7 +70,8 @@ public class NaproController {
     public String registerNapro(@RequestParam(name = "start")String start,
                                 NaproData naproData,
                                 RedirectAttributes redirectAttributes){
-        NaproEvent naproEvent = naproService.registerNaproData(naproData, start);
+        String userId = SessionUtil.getLoginUserId();
+        NaproEvent naproEvent = naproService.registerNaproData(userId, naproData, start);
         redirectAttributes.addAttribute("id", naproEvent.getId());
         redirectAttributes.addAttribute("start", start);
 

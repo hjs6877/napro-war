@@ -5,3 +5,10 @@ h1{
 h2{
     color:#FF0000;
 }
+
+.footer {
+    height:40px;
+    width:100%;
+    position:absolute;
+    bottom: 10px;
+}

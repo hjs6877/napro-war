@@ -24,7 +24,7 @@ import java.util.Enumeration;
 public class SessionUtil {
     private  static final String LOGIN_INFO = "LOGIN_INFO";
 
-    public static void removeLoginInfo(HttpSession session) {
+    public static void removeSession(HttpSession session) {
         session.removeAttribute(LOGIN_INFO);
         session.invalidate();
     }

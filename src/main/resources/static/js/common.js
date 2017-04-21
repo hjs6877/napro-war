@@ -12,4 +12,10 @@ $(document).ready(function(){
     });
 
     contextPath = $("#contextPath").val();
+
+    $("#logout").bind("click", function(){
+        if(confirm("로그아웃 하시겠습니까?")){
+            location.href = contextPath + "/np/logout";
+        }
+    });
 });

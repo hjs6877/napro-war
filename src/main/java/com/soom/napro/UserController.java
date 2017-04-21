@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * summary:
  * <p> description:
@@ -55,5 +57,11 @@ public class UserController {
         }
 
         return result;
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String naproLogout(HttpSession session){
+        SessionUtil.removeSession(session);
+        return "redirect:/np/login";
     }
 }

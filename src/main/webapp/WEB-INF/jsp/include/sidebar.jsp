@@ -16,6 +16,9 @@
             <a href="#">Napro Chart</a>
         </li>
     </ul>
+    <div class="footer" style="padding: 5px;">
+        <button id="logout" class="btn btn-default btn-sm btn-block">Logout</button>
+    </div>
 </div>
 
 <!-- /#sidebar-wrapper -->

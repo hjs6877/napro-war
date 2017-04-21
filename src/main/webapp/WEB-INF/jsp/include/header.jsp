@@ -4,6 +4,7 @@
 <link href="${pageContext.request.contextPath}/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/lib/fullcalendar/fullcalendar.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/css/simple-sidebar.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet">
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/lib/jquery/jquery-3.2.0.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/lib/bootstrap/js/bootstrap.min.js"></script>

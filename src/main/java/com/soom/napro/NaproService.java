@@ -2,7 +2,6 @@ package com.soom.napro;
 
 import com.soom.entity.NaproData;
 import com.soom.entity.NaproEvent;
-import com.soom.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,23 +22,28 @@ import java.util.Map;
  */
 @Service
 public class NaproService {
+    public static String DELETE_NAPRODATA_SUCCESS = "delete-naprodata-success";
+    public static String DELETE_NAPROEVENT_SUCCESS = "delete-naproevent-success";
+
     @Autowired
-    private NaproDao naproDao;
+    private NaproEventDao naproEventDao;
+
+    @Autowired
+    private NaproDataDao naproDataDao;
 
     @Autowired
     private UserDao userDao;
 
     public List<NaproEvent> findAllNaproEvent(){
-        List<NaproEvent> naproEvents = naproDao.findAll();
+        List<NaproEvent> naproEvents = naproEventDao.findAll();
         for(NaproEvent naproEvent : naproEvents){
             naproEvent.setNaproDataList(null);
         }
         return naproEvents;
     }
-    public List<NaproData> findNaproDataByeventId(int eventId){
-        NaproEvent naproEvent = naproDao.findById(eventId);
-        List<NaproData> naproDatas = naproEvent != null ? naproEvent.getNaproDataList() : null;
-        return naproDatas;
+    public List<NaproData> findNaproDataByEventId(int eventId){
+        List<NaproData> naproDataList = naproDataDao.findByEventId(eventId);
+        return naproDataList;
     }
 
     @Transactional
@@ -48,33 +52,44 @@ public class NaproService {
         String month = startDate.substring(4, 6);
         String day = startDate.substring(6);
         String start = year + "-" + month + "-" + day;
-        User user = userDao.findOne(userId);
-        NaproEvent naproEvent = naproDao.findById(naproData.getId());
+
         int score = 0;
         String totalCode = "";
         Date curDate = new Date();
 
-        if(naproEvent == null){
-            naproEvent = new NaproEvent();
+        NaproEvent naproEvent = naproEventDao.findById(naproData.getEventId());
+        NaproEvent resultEvent;
 
-            naproEvent.setStart(start);
-            naproEvent.setEnd(start);
-
-            user.addNaproEvent(naproEvent);
-        }
 
         Map<String, Object> calculatedData = calculateNaproData(naproData);
 
         score = (int) calculatedData.get("score");
         totalCode = (String) calculatedData.get("totalCode");
 
-        naproData.setId(naproEvent.getId());
         naproData.setScore(score);
         naproData.setTotalCode(totalCode);
 
         naproData.setCreateDate(curDate);
         naproData.setModifyDate(curDate);
-        naproEvent.addNaproData(naproData);
+
+        if(naproEvent == null){
+            naproEvent = new NaproEvent();
+
+            naproEvent.setStart(start);
+            naproEvent.setEnd(start);
+            naproEvent.setUserId(userId);
+
+            resultEvent = naproEventDao.save(naproEvent);
+            naproData.setEventId(resultEvent.getId());
+            resultEvent.addNaproData(naproData);
+        }else{
+            naproData.setEventId(naproEvent.getId());
+            naproEvent.addNaproData(naproData);
+        }
+
+
+
+
 
         /**
          * score가 가장 큰 NaproData를 찾는다.
@@ -82,7 +97,7 @@ public class NaproService {
          */
         List<NaproData> naproDataList = naproEvent.getNaproDataList();
         int maxScore = 0;
-        String maxTotalCode = "";
+        String maxTotalCode = getMaxTotalCode(naproEvent);
         for(NaproData naData : naproDataList){
             int sc = naData.getScore();
             String code = naData.getTotalCode();
@@ -97,6 +112,66 @@ public class NaproService {
 
 
         return naproEvent;
+    }
+
+
+    @Transactional
+    public NaproEvent modifyNaproData(NaproData naproData) {
+        NaproData recentNaproData = naproDataDao.findByNaproDataId(naproData.getNaproDataId());
+        NaproEvent naproEvent = naproEventDao.findById(naproData.getEventId());
+        int score;
+        String totalCode;
+        Date curDate = new Date();
+
+        Map<String, Object> calculatedData = calculateNaproData(naproData);
+
+        score = (int) calculatedData.get("score");
+        totalCode = (String) calculatedData.get("totalCode");
+
+        naproData.setScore(score);
+        naproData.setTotalCode(totalCode);
+        naproData.setCreateDate(recentNaproData.getCreateDate());
+        naproData.setModifyDate(curDate);
+
+        naproDataDao.save(naproData);
+
+        /**
+         * score가 가장 큰 NaproData를 찾는다.
+         * 해당 NaproData의 total code를 넣어준다.
+         */
+        String maxTotalCode = getMaxTotalCode(naproEvent);
+
+
+        naproEvent.setTitle(maxTotalCode);
+
+
+        return naproEvent;
+    }
+
+    @Transactional
+    public void deleteNaproEvent(int eventId){
+        naproEventDao.delete(eventId);
+    }
+
+    @Transactional
+    public void deleteNaproData(int naproDataId){
+        naproDataDao.delete(naproDataId);
+    }
+
+    private String getMaxTotalCode(NaproEvent naproEvent) {
+        List<NaproData> naproDataList = naproEvent.getNaproDataList();
+        int maxScore = 0;
+        String maxTotalCode = "";
+        for(NaproData naData : naproDataList){
+            int sc = naData.getScore();
+            String code = naData.getTotalCode();
+
+            if(naData.getScore() >= maxScore){
+                maxScore = sc;
+                maxTotalCode = code;
+            }
+        }
+        return maxTotalCode;
     }
 
     private Map<String, Object> calculateNaproData(NaproData naproData) {

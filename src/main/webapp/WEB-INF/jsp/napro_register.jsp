@@ -38,12 +38,19 @@
                         </thead>
                         <tbody>
                         <c:choose>
-                            <c:when test="${naproDataList == null}">
+                            <c:when test="${empty naproDataList}">
                                 <tr><td colspan="3" class="text-center">기록한 내용이 없습니다.</td></tr>
                             </c:when>
                             <c:otherwise>
                                 <c:forEach var="naproData" items="${naproDataList}" >
-                                    <tr class="napro-data-row">
+                                    <tr class="napro-data-row" data-id="${naproData.naproDataId}" data-mense="${naproData.mense}"
+                                        data-existMucus="${naproData.existMucus}"
+                                        data-vaginaLevel="${naproData.vaginaLevel}" data-state1D="${naproData.state1D}"
+                                        data-state1W="${naproData.state1W}" data-state1S="${naproData.state1S}"
+                                        data-state2C="${naproData.state2C}" data-state2CK="${naproData.state2CK}"
+                                        data-state2G="${naproData.state2G}" data-state2K="${naproData.state2K}"
+                                        data-state2L="${naproData.state2L}" data-state2P="${naproData.state2P}"
+                                        data-state2Y="${naproData.state2Y}">
                                         <td>${naproData.totalCode}</td>
                                         <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
                                                             value="${naproData.createDate}" /></td>
@@ -57,10 +64,11 @@
                 </div>
                 <!-- Modal -->
                 <div class="modal fade" id="naproModal" role="dialog">
-                    <form name="naproDataForm" action="${pageContext.request.contextPath}/np/registration" method="POST" id="naproDataForm" >
+                    <form name="naproDataForm" action="" method="POST" id="naproDataForm" >
                         <input type="hidden" name="mode" id="mode" value="${mode}"/>
-                        <input type="hidden" name="id" value="${id}"/>
-                        <input type="hidden" name="start" value="${start}"/>
+                        <input type="hidden" id="eventId" name="eventId" value="${eventId}"/>
+                        <input type="hidden" id="naproDataId" name="naproDataId" value="0"/>
+                        <input type="hidden" id="start" name="start" value="${start}"/>
 
                         <div class="modal-dialog">
                             <!-- Modal content-->
@@ -137,40 +145,40 @@
                                                 <span>State 2:</span><br/>
                                                 <div>
                                                     <label>
-                                                        <input type="checkbox" name="state2C" value="S2_C" class="chkState2"/>
+                                                        <input type="checkbox" id="state2C" name="state2C" value="S2_C" class="chkState2"/>
                                                         C(혼탁)
                                                     </label>
                                                     &nbsp;&nbsp;&nbsp;
                                                     <label>
-                                                        <input type="checkbox" name="state2CK" value="S2_CK" class="chkState2">
+                                                        <input type="checkbox" id="state2CK" name="state2CK" value="S2_CK" class="chkState2">
                                                         C/K(일부혼탁/일부투명)
                                                     </label>
                                                 </div>
                                                 <div>
                                                     <label>
-                                                        <input type="checkbox" name="state2G" value="S2_G" class="chkState2"/>
+                                                        <input type="checkbox" id="state2G" name="state2G" value="S2_G" class="chkState2"/>
                                                         G(쫀득쫀득한)
                                                     </label>
                                                     &nbsp;&nbsp;&nbsp;
                                                     <label>
-                                                        <input type="checkbox" name="state2K" value="S2_K" class="chkState2"/>
+                                                        <input type="checkbox" id="state2K" name="state2K" value="S2_K" class="chkState2"/>
                                                         K(투명한)
                                                     </label>
                                                 </div>
                                                 <di>
                                                     <label>
-                                                        <input type="checkbox" name="state2L" value="S2_L" class="chkState2"/>
+                                                        <input type="checkbox" id="state2L" name="state2L" value="S2_L" class="chkState2"/>
                                                         L(미끈거리는)
                                                     </label>
                                                     &nbsp;&nbsp;&nbsp;
                                                     <label>
-                                                        <input type="checkbox" name="state2P" value="S2_P" class="chkState2"/>
+                                                        <input type="checkbox" id="state2P" name="state2P" value="S2_P" class="chkState2"/>
                                                         P(크림같은)
                                                     </label>
                                                 </di>
                                                 <div>
                                                     <label>
-                                                        <input type="checkbox" name="state2Y" value="S2_Y" class="chkState2"/>
+                                                        <input type="checkbox" id="state2Y" name="state2Y" value="S2_Y" class="chkState2"/>
                                                         Y(노랑색)
                                                     </label>
                                                 </div>

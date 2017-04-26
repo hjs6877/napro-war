@@ -32,7 +32,7 @@ public class NaproServiceTest {
     private UserService userService;
 
     @Autowired
-    private NaproDao naproDao;
+    private NaproEventDao naproEventDao;
 
     @Test
     @Transactional
@@ -49,7 +49,7 @@ public class NaproServiceTest {
         naproData1.setState1D(NaproEnum.S1_D);
         naproData1.setState2L(NaproEnum.S2_L);
         naproData1.setCreateDate(new Date());
-        naproData1.setId(1);
+        naproData1.setEventId(1);
 
 
 

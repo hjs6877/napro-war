@@ -90,6 +90,6 @@ public class NaproData {
     @Column(name = "modify_date")
     private Date modifyDate;
 
-    @Column(name = "id")
-    private int id;
+    @Column(name = "event_id")
+    private int eventId;
 }

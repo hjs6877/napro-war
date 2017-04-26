@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
  * @see
  */
 @Repository
-public interface NaproDao extends JpaRepository<NaproEvent, Integer> {
+public interface NaproEventDao extends JpaRepository<NaproEvent, Integer> {
     NaproEvent findById(int id);
+    void delete(int eventId);
+    NaproEvent save(NaproEvent naproEvent);
 }

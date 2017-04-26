@@ -67,7 +67,7 @@ $(document).ready(function(){
             var splitDate = calEvent.start.format().split("-");
             var formattedDate = splitDate[0] + splitDate[1] + splitDate[2];
 
-            location.href = contextPath + '/np/registration?id=' + calEvent.id + '&start=' + formattedDate;
+            location.href = contextPath + '/np/registration?eventId=' + calEvent.id + '&start=' + formattedDate;
             //alert("event ID: " + calEvent.id);
             //alert("event title: " + calEvent.title);
             //alert("event start: " + calEvent.start.format());

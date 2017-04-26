@@ -45,36 +45,75 @@ public class NaproController {
     @RequestMapping(value = "/events")
     public List<NaproEvent> getEvents() {
         String userId = SessionUtil.getLoginUserId();
-        User user = userDao.findOne(userId);
+        User user = userDao.findById(userId);
         List<NaproEvent> naproEvents = user.getNaproEventList();
 
         return naproEvents;
     }
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registerNaproForm(HttpSession session,
-                                    @RequestParam(name = "id", defaultValue = "0")int targetEventId,
+                                    @RequestParam(name = "eventId", defaultValue = "0")int targetEventId,
                                     @RequestParam(name = "start", required = false, defaultValue = "")String start,
                                     Model model){
 
-        List<NaproData> naproDataList  = naproService.findNaproDataByeventId(targetEventId);
-        if(naproDataList != null){
+        List<NaproData> naproDataList  = naproService.findNaproDataByEventId(targetEventId);
+        if(naproDataList.size() > 0){
             naproDataList.sort(comparing(NaproData::getScore).reversed());
         }
         model.addAttribute("naproDataList", naproDataList);
-        model.addAttribute("id", targetEventId);
+        model.addAttribute("eventId", targetEventId);
         model.addAttribute("start", start);
         return "napro_register";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registerNapro(@RequestParam(name = "start")String start,
+                                @RequestParam(name = "mode")String mode,
                                 NaproData naproData,
                                 RedirectAttributes redirectAttributes){
         String userId = SessionUtil.getLoginUserId();
         NaproEvent naproEvent = naproService.registerNaproData(userId, naproData, start);
-        redirectAttributes.addAttribute("id", naproEvent.getId());
+        redirectAttributes.addAttribute("eventId", naproEvent.getId());
         redirectAttributes.addAttribute("start", start);
 
         return "redirect:/np/registration";
+    }
+
+    @RequestMapping(value = "/modify", method = RequestMethod.POST)
+    public String modifyNapro(@RequestParam(name = "start")String start,
+                                @RequestParam(name = "mode")String mode,
+                                NaproData naproData,
+                                RedirectAttributes redirectAttributes){
+        NaproEvent naproEvent = naproService.modifyNaproData(naproData);
+        redirectAttributes.addAttribute("eventId", naproEvent.getId());
+        redirectAttributes.addAttribute("start", start);
+
+        return "redirect:/np/registration";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String deleteNaproData(@RequestParam(name = "eventId", required = false)int eventId,
+                                  @RequestParam(name = "naproDataId", required = false)int naproDataId,
+                                  @RequestParam(name = "start")String start,
+                                  RedirectAttributes redirectAttributes){
+        String redirectUrl = "";
+        if(eventId > 0 || naproDataId > 0){
+            List<NaproData> naproData = naproService.findNaproDataByEventId(eventId);
+            if(naproData.size() == 1){
+                naproService.deleteNaproData(naproDataId);
+                naproService.deleteNaproEvent(eventId);
+                redirectUrl = "redirect:/np/napro_home";
+            }else{
+                naproService.deleteNaproData(naproDataId);
+                redirectAttributes.addAttribute("eventId", eventId);
+                redirectAttributes.addAttribute("start", start);
+                redirectUrl = "redirect:/np/registration";
+            }
+        }else{
+            redirectUrl = "redirect:/np/napro_home";
+        }
+
+
+        return redirectUrl;
     }
 }

@@ -37,6 +37,9 @@ public class NaproEvent {
     @JoinColumn(name = "event_id")
     private List<NaproData> naproDataList;
 
+    @Column(name = "user_id")
+    private String userId;
+
     public void addNaproData(NaproData naproData){
         if( naproDataList == null ){
             naproDataList = new ArrayList<>();

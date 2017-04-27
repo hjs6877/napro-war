@@ -30,7 +30,12 @@
                         <label for="loginPassword">PASSWORD</label>
                         <input type="password"  id="loginPassword" class="form-control" placeholder="Password를 입력하세요">
                     </div>
-
+                    <div>
+                        <label>
+                            <input type="checkbox" name="allowAutoLogin" id="allowAutoLogin"/>
+                            자동 로그인
+                        </label>
+                    </div>
                     <div style="margin-top: 30px;margin-bottom: 30px;">
                         <input type="button" id="btn_login" class="btn btn-primary btn-lg btn-block" value="로그인"/>
                     </div>

@@ -2,6 +2,8 @@ package com.soom.vo;
 
 import lombok.Data;
 
+import java.util.Map;
+
 /**
  * summary:
  * <p> description:
@@ -15,4 +17,5 @@ import lombok.Data;
 public class Result {
     private String code;
     private String message;
+    private Map<String, String> resultData;
 }

@@ -22,6 +22,10 @@ public class UserService {
     public static String LOGIN_FAIL_MSG = "아이디 또는 비밀번호가 틀립니다.";
     public static String LOGIN_SUCCESS_CODE = "login-success";
     public static String LOGIN_SUCCESS_MSG = "";
+    public static String LOGOUT_SUCCESS_CODE = "logout-success";
+    public static String LOGOUT_SUCCESS_MSG = "";
+    public static String LOGIN_AUTO_DENY = "login-auto-deny";
+    public static String LOGIN_AUTO_ALLOW = "login-auto-allow";
     @Autowired
     private UserDao userDao;
 
@@ -38,12 +42,25 @@ public class UserService {
         return savedUser;
     }
 
+    public User modifyUser(User user){
+        User savedUser = userDao.save(user);
+        return savedUser;
+    }
+
     public User findUserByIdAndPassword(User user){
         String id = user.getId();
         String password = user.getPassword();
         String hashedPassword = CipherUtil.hash(password);
 
         User resultUser = userDao.findByIdAndPassword(id, hashedPassword);
+        return resultUser;
+    }
+
+    public User findUserByIdAndSalt(User user){
+        String id = user.getId();
+        String salt = user.getSalt();
+
+        User resultUser = userDao.findByIdAndSalt(id, salt);
         return resultUser;
     }
 }

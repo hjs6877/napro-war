@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -31,6 +33,9 @@ public class UserServiceTest {
         User user = new User();
         user.setId("soomee");
         user.setPassword("7725");
+        String salt = UUID.randomUUID().toString();
+//        user.setSalt(salt);
+//        user.setAllowAutoLogin("Y");
 
         User savedUser = userService.registerUser(user);
         System.out.println("userId: " + savedUser.getId());

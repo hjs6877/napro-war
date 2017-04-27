@@ -8,12 +8,10 @@
     <title>welcome</title>
 
     <link href="/css/main.css" rel="stylesheet" />
+    <jsp:include page="include/header.jsp"/>
     <script type="text/javascript" src="/js/main.js"></script>
-    <script type="text/javascript">
-        location.href = "${pageContext.request.contextPath}/np/login"
-    </script>
 </head>
 <body>
-<h1>welcom to napro</h1>
+<div class="text-center">wait for a seconds..</div>
 </body>
 </html>

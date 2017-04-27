@@ -30,6 +30,12 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "allow_auto_login")
+    private String allowAutoLogin;
+
+    @Column(name = "salt")
+    private String salt;
+
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;

@@ -18,7 +18,7 @@ import java.io.IOException;
 public class ControllerExceptionHandler {
     public static void sendError(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         RequestDispatcher requestDispatcher;
-        requestDispatcher = request.getRequestDispatcher("/np/login");
+        requestDispatcher = request.getRequestDispatcher("/");
         if (requestDispatcher != null) {
             requestDispatcher.forward(request, response);
         }

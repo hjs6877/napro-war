@@ -7,9 +7,9 @@
     <meta charset="utf-8">
     <title>welcome</title>
 
-    <link href="/css/main.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet" />
     <jsp:include page="include/header.jsp"/>
-    <script type="text/javascript" src="/js/main.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
 </head>
 <body>
 <div class="text-center">wait for a seconds..</div>

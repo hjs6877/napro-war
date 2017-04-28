@@ -47,9 +47,9 @@ $(document).ready(function(){
                   $("#loginPassword").val("");
                }else if(data.code == "login-success"){
                   if(data.resultData.allowAutoLogin && data.resultData.userId && data.resultData.salt){
-                     localStorage.setItem("allowAutoLogin", data.resultData.allowAutoLogin);
-                     localStorage.setItem("userId", data.resultData.userId);
-                     localStorage.setItem("salt", data.resultData.salt);
+                     $.cookie("allowAutoLogin", data.resultData.allowAutoLogin, {expires: 14, path: '/'});
+                     $.cookie("userId", data.resultData.userId, {expires: 14, path: '/'});
+                     $.cookie("salt", data.resultData.salt, {expires: 14, path: '/'});
                   }
                   location.href = contextPath + "/np/napro_home";
                }

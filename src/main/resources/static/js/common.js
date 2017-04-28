@@ -24,7 +24,9 @@ $(document).ready(function(){
                 success:function(data){
                     // TODO 로그인 해킹에 대한 보완 필요.
                     if(data.code == "logout-success"){
-                        localStorage.clear();
+                        $.removeCookie("allowAutoLogin");
+                        $.removeCookie("userId");
+                        $.removeCookie("salt");
                         location.href = contextPath + "/";
                     }
                 },

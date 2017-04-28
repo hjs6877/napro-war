@@ -63,4 +63,9 @@ public class UserService {
         User resultUser = userDao.findByIdAndSalt(id, salt);
         return resultUser;
     }
+
+    public User findUserById(String userId){
+        User resultUser = userDao.findById(userId);
+        return resultUser;
+    }
 }

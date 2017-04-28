@@ -2,9 +2,9 @@
  * Created by kjs on 2017-03-28.
  */
 $(document).ready(function(){
-    var allowAutoLogin = localStorage.getItem("allowAutoLogin");
-    var userId = localStorage.getItem("userId");
-    var salt = localStorage.getItem("salt");
+    var allowAutoLogin = $.cookie("allowAutoLogin");
+    var userId = $.cookie("userId");
+    var salt = $.cookie("salt");
 
     if(allowAutoLogin && userId && salt){
         $.ajax({

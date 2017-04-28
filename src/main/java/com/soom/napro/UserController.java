@@ -112,8 +112,16 @@ public class UserController {
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public ResponseEntity naproLogout(HttpSession session, Result result){
-        SessionUtil.removeSession(session);
-        result.setCode(UserService.LOGOUT_SUCCESS_CODE);
+        String userId = SessionUtil.getLoginUserId();
+        User user = userService.findUserById(userId);
+        if(user != null){
+            user.setAllowAutoLogin("N");
+            user.setSalt(null);
+            userService.modifyUser(user);
+            SessionUtil.removeSession(session);
+            result.setCode(UserService.LOGOUT_SUCCESS_CODE);
+        }
+
         return new ResponseEntity(result, HttpStatus.OK);
     }
 }

@@ -18,7 +18,9 @@ $(document).ready(function(){
             success:function(data){
                 console.log(data);
                 if(data.code == "login-auto-deny"){
-                    localStorage.clear();
+                    $.removeCookie("allowAutoLogin", {path: '/'});
+                    $.removeCookie("userId", {path: '/'});
+                    $.removeCookie("salt", {path: '/'});
                     location.href = contextPath + "/np/login";
                 }else if(data.code == "login-auto-allow"){
                     location.href = contextPath + "/np/napro_home";

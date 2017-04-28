@@ -50,6 +50,10 @@ $(document).ready(function(){
                      $.cookie("allowAutoLogin", data.resultData.allowAutoLogin, {expires: 14, path: '/'});
                      $.cookie("userId", data.resultData.userId, {expires: 14, path: '/'});
                      $.cookie("salt", data.resultData.salt, {expires: 14, path: '/'});
+                  }else{
+                     $.removeCookie("allowAutoLogin", {path: '/'});
+                     $.removeCookie("userId", {path: '/'});
+                     $.removeCookie("salt", {path: '/'});
                   }
                   location.href = contextPath + "/np/napro_home";
                }

@@ -5,7 +5,8 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>welcome</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Napro</title>
 
     <link href="${pageContext.request.contextPath}/css/main.css" rel="stylesheet" />
     <jsp:include page="include/header.jsp"/>
